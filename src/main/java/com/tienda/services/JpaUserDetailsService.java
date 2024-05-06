@@ -25,7 +25,7 @@ public class JpaUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		Optional<Usuario> optUser = usuarioDao.findByUsuario(username);
+		Optional<Usuario> optUser = usuarioDao.findByCorreo(username);
 		if (optUser.isEmpty()) {
 			throw new UsernameNotFoundException(String.format("El usuario %s  no esta registrado", username));
 		}

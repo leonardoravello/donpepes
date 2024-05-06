@@ -19,8 +19,11 @@ public class Producto {
 	@Column( unique = true)
 	private String nombre;
 	private String descripcion;
-	private String foto;
+	private String ruta;
 	private int estado;
+	private int stock;
+	@Column(name="precio_venta")
+	private double precioVenta;
 	@ManyToOne
 	@JoinColumn(name = "id_marc")
 	private Marca marca;
@@ -55,14 +58,6 @@ public class Producto {
 		this.descripcion = descripcion;
 	}
 
-	public String getRuta() {
-		return foto;
-	}
-
-	public void setRuta(String ruta) {
-		this.foto = ruta;
-	}
-
 	public int getEstado() {
 		return estado;
 	}
@@ -94,21 +89,52 @@ public class Producto {
 	public void setMedida(UnidadMedida medida) {
 		this.medida = medida;
 	}
+	
+	public String getRuta() {
+		return ruta;
+	}
+
+	public void setRuta(String foto) {
+		this.ruta = foto;
+	}
+
+	public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+
+	public double getPrecioVenta() {
+		return precioVenta;
+	}
+
+	public void setPrecioVenta(double precioVenta) {
+		this.precioVenta = precioVenta;
+	}
 
 	public Producto() {
 
 	}
 
-	public Producto(int id, String nombre, String descripcion, String ruta, int estado, Marca marca,
-			Categoria categoria, UnidadMedida medida) {
+	public Producto(int id, String nombre, String descripcion, String ruta, int estado, int stock, double precioVenta,
+			Marca marca, Categoria categoria, UnidadMedida medida) {
+		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
-		this.foto = ruta;
+		this.ruta = ruta;
 		this.estado = estado;
+		this.stock = stock;
+		this.precioVenta = precioVenta;
 		this.marca = marca;
 		this.categoria = categoria;
 		this.medida = medida;
 	}
+	
+	
+
+
 
 }

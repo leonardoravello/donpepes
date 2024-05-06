@@ -24,9 +24,17 @@ public class Usuario {
 	private int id;
 
 	@Column(unique = true)
-	private String usuario;
+	private String correo;
 
 	private String password;
+
+	private String apellidoPaterno;
+
+	private String apellidoMaterno;
+
+	private String nombres;
+
+	private String numeroDocumento;
 
 	private Boolean estado;
 
@@ -41,14 +49,6 @@ public class Usuario {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
 	}
 
 	public String getPassword() {
@@ -75,13 +75,58 @@ public class Usuario {
 		this.roles = roles;
 	}
 
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
+	public String getApellidoPaterno() {
+		return apellidoPaterno;
+	}
+
+	public void setApellidoPaterno(String apellidoPaterno) {
+		this.apellidoPaterno = apellidoPaterno;
+	}
+
+	public String getApellidoMaterno() {
+		return apellidoMaterno;
+	}
+
+	public void setApellidoMaterno(String apellidoMaterno) {
+		this.apellidoMaterno = apellidoMaterno;
+	}
+
+	public String getNombres() {
+		return nombres;
+	}
+
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
+
+	public String getNumeroDocumento() {
+		return numeroDocumento;
+	}
+
+	public void setNumeroDocumento(String numeroDocumento) {
+		this.numeroDocumento = numeroDocumento;
+	}
+	
 	public Usuario() {
 	}
 
-	public Usuario(int id, String usuario, String password, Boolean estado, List<Rol> roles) {
+	public Usuario(int id, String correo, String password, String apellidoPaterno, String apellidoMaterno,
+			String nombres, String numeroDocumento, Boolean estado, List<Rol> roles) {
 		this.id = id;
-		this.usuario = usuario;
+		this.correo = correo;
 		this.password = password;
+		this.apellidoPaterno = apellidoPaterno;
+		this.apellidoMaterno = apellidoMaterno;
+		this.nombres = nombres;
+		this.numeroDocumento = numeroDocumento;
 		this.estado = estado;
 		this.roles = roles;
 	}
