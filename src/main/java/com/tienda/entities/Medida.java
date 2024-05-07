@@ -1,6 +1,6 @@
 package com.tienda.entities;
 
-public class Medidas {
+public class Medida {
 
 	private int id;
 
@@ -22,10 +22,10 @@ public class Medidas {
 		this.descripcion = descripcion;
 	}
 
-	public Medidas() {
+	public Medida() {
 	}
 
-	public Medidas(int id, String descripcion) {
+	public Medida(int id, String descripcion) {
 		this.id = id;
 		this.descripcion = descripcion;
 	}
