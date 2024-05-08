@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tienda.entities.Categoria;
 import com.tienda.services.ICategoriaService;
+
+import jakarta.validation.Valid;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -63,9 +66,13 @@ public class CategoriaController {
 	}
 
 	@PostMapping()
-	public ResponseEntity<?> save(@RequestBody Categoria categoria) {
+	public ResponseEntity<?> save(@Valid @RequestBody Categoria categoria, BindingResult result) {
 		Categoria categoriaNueva = null;
 		Map<String, Object> response = new HashMap<>();
+
+		if (result.hasErrors()) {
+			return validation(result);
+		}
 
 		try {
 			categoriaNueva = categoriaService.save(categoria);
@@ -82,12 +89,17 @@ public class CategoriaController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<?> update(@RequestBody Categoria categoria, @PathVariable int id) {
+	public ResponseEntity<?> update(@Valid @RequestBody Categoria categoria, BindingResult result,
+			@PathVariable int id) {
 
 		Optional<Categoria> optionalActual = categoriaService.findById(id);
 		Map<String, Object> response = new HashMap<>();
 		Categoria categoriaNueva = null;
 		Categoria categoriaActual = null;
+
+		if (result.hasErrors()) {
+			return validation(result);
+		}
 
 		if (!optionalActual.isPresent()) {
 			response.put("mensaje", "La categoria con ID " + id + " no existe en la BD");
@@ -128,6 +140,16 @@ public class CategoriaController {
 		response.put("mensaje", "Categoria eliminada");
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+	}
+
+	private ResponseEntity<?> validation(BindingResult result) {
+		Map<String, Object> errors = new HashMap<>();
+
+		result.getFieldErrors().forEach(error -> {
+			errors.put(error.getField(), "El campo " + error.getField() + " " + error.getDefaultMessage());
+		});
+		return ResponseEntity.badRequest().body(errors);
+
 	}
 
 }

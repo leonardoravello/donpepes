@@ -11,9 +11,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.tienda.entities.Categoria;
@@ -25,6 +27,7 @@ import com.tienda.services.ICategoriaService;
 import com.tienda.services.IProductoService;
 import com.tienda.services.IUsuarioService;
 
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/home")
@@ -38,7 +41,6 @@ public class HomeController {
 
 	@Autowired
 	private ICategoriaService categoriaService;
-
 
 	@GetMapping()
 	public List<Producto> catalogo() {
@@ -82,9 +84,14 @@ public class HomeController {
 	}
 
 	@PostMapping("/registrar")
-	public ResponseEntity<?> cliente(@org.springframework.web.bind.annotation.RequestBody Usuario usuario) {
+	public ResponseEntity<?> cliente(@Valid @RequestBody Usuario usuario, BindingResult result) {
 		Usuario usuarioNuevo = null;
 		Map<String, Object> response = new HashMap<>();
+
+		if (result.hasErrors()) {
+			return validation(result);
+		}
+
 		try {
 
 			usuarioNuevo = usuarioService.save(usuario);
@@ -119,7 +126,15 @@ public class HomeController {
 	public Page<Producto> listar(@PathVariable Integer page) {
 		return productoService.findAll(PageRequest.of(page, 2));
 	}
-	
-	
+
+	private ResponseEntity<?> validation(BindingResult result) {
+		Map<String, Object> errors = new HashMap<>();
+
+		result.getFieldErrors().forEach(error -> {
+			errors.put(error.getField(), "El campo " + error.getField() + " " + error.getDefaultMessage());
+		});
+		return ResponseEntity.badRequest().body(errors);
+
+	}
 
 }

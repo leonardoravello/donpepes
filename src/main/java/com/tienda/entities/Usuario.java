@@ -14,6 +14,10 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "usuarios")
@@ -23,19 +27,23 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(unique = true,nullable = false)
+	@NotBlank
+	@Column(unique = true, nullable = false)
+	@Email
 	private String correo;
-	@Column(nullable = false)
+
+	@NotBlank
+	@Size(min = 8)
+	@Pattern(regexp = "^(?=.*[A-Z])(?=.*\\d).+$", message = "La contraseña debe contener al menos una mayúscula y un número")
 	private String password;
-
+	@NotBlank
 	private String apellidoPaterno;
-
+	@NotBlank
 	private String apellidoMaterno;
-
+	@NotBlank
 	private String nombres;
-
+	@NotBlank
 	private String numeroDocumento;
-
 	private Boolean estado;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -114,7 +122,7 @@ public class Usuario {
 	public void setNumeroDocumento(String numeroDocumento) {
 		this.numeroDocumento = numeroDocumento;
 	}
-	
+
 	public Usuario() {
 	}
 
@@ -131,5 +139,4 @@ public class Usuario {
 		this.roles = roles;
 	}
 
-	
 }
