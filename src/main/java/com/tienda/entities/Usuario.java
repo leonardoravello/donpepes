@@ -23,9 +23,9 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(unique = true)
+	@Column(unique = true,nullable = false)
 	private String correo;
-
+	@Column(nullable = false)
 	private String password;
 
 	private String apellidoPaterno;
@@ -131,4 +131,5 @@ public class Usuario {
 		this.roles = roles;
 	}
 
+	
 }

@@ -45,7 +45,12 @@ public class SpringSecurityConfiguration {
 			return http.authorizeHttpRequests( auth ->
  					auth
  					.requestMatchers(HttpMethod.GET,"/api/home/**","/tienda/images/img/**").permitAll()
+ 					.requestMatchers(HttpMethod.POST,"/api/home/registrar").permitAll()
  					//.requestMatchers(HttpMethod.GET, "/tienda/categorias").hasRole("ADMIN")//
+ 					.requestMatchers(HttpMethod.GET, "/api/mantenimiento/**").hasRole("ADMIN")
+ 					.requestMatchers(HttpMethod.POST, "/api/mantenimiento/**").hasRole("ADMIN")
+ 					.requestMatchers(HttpMethod.PUT, "/api/mantenimiento/**").hasRole("ADMIN")
+ 					.requestMatchers(HttpMethod.DELETE, "/api/mantenimiento/**").hasRole("ADMIN")
  					.anyRequest().authenticated())
 					.cors(cors->cors.configurationSource(configurationSource()))
 					.addFilter(new  JwtAuthenticationFilter(authenticationManager()))
