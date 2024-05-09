@@ -15,9 +15,12 @@ public class Categoria {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
+	
 	@NotBlank
 	@Column( unique = true)
+	private String nombre;
+
+	@NotBlank
 	private String detalle;
 
 	public int getId() {
@@ -36,12 +39,20 @@ public class Categoria {
 		this.detalle = detalle;
 	}
 
-	public Categoria() {
+	public String getNombre() {
+		return nombre;
 	}
 
-	public Categoria(int id, String detalle) {
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public Categoria(int id, @NotBlank String nombre, @NotBlank String detalle) {
+		super();
 		this.id = id;
+		this.nombre = nombre;
 		this.detalle = detalle;
 	}
+
 
 }

@@ -56,9 +56,9 @@ public class ProductoController {
 		return productoService.getProductos(categoria);
 	}
 
-	@GetMapping("/pagina/{page}")
-	public Page<Producto> listar(@PathVariable Integer page,@PathVariable int cantidad) {
-		return productoService.findAll(PageRequest.of(page, 2));
+	@GetMapping("/pagina")
+	public Page<Producto> listar(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "2") int num) {
+		return productoService.findAll(PageRequest.of(page, num));
 	}
 
 	@GetMapping("/{id}")

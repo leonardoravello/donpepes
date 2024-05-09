@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tienda.entities.Marca;
@@ -36,9 +37,9 @@ public class MarcaController {
 		return marcaService.getMarcas();
 	}
 	
-	@GetMapping("/pagina/{page}")
-	public Page<Marca> listar(@PathVariable Integer page, @PathVariable int cantidad) {
-		return marcaService.findAll(PageRequest.of(page, 2));
+	@GetMapping("/pagina")
+	public Page<Marca> listar(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "5") int num) {
+		return marcaService.findAll(PageRequest.of(page, num));
 	}
 
 	@GetMapping("/{id}")

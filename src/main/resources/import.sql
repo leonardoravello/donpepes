@@ -1,4 +1,4 @@
-INSERT INTO `categorias` (`id`, `detalle`) VALUES (NULL, 'Bebidas'), (NULL, 'Abarrotes'), (NULL, 'Golosinas'), (NULL, 'Galletas'), (NULL, 'Panes');
+INSERT INTO `categorias` (`id`, `nombre`) VALUES (NULL, 'Bebidas'), (NULL, 'Abarrotes'), (NULL, 'Golosinas'), (NULL, 'Galletas'), (NULL, 'Panes');
 INSERT INTO `marcas` (`id`, `nombre`, `detalle`) VALUES (NULL, NULL, 'Costa'), (NULL, NULL, 'Coca Cola'), (NULL, NULL, 'Bimbo'), (NULL, NULL, 'Campomar');
 INSERT INTO `unidades_medidas` (`id`, `descripcion`) VALUES (NULL, 'Kilo'), (NULL, 'Unidad'), (NULL, 'Six Pack');
 INSERT INTO `productos` (`estado`, `id`, `id_cate`, `id_marc`, `id_unid_medi`, `precio_venta`, `stock`, `descripcion`, `nombre`, `ruta`) VALUES ('1', NULL, '4', '1', '2', '2.5', '200', 'Galleta wafer sabor vainilla 200gr', 'Wafer', '0002.jpg');

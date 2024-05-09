@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.tienda.entities.Categoria;
 import com.tienda.entities.Medida;
@@ -122,9 +123,9 @@ public class HomeController {
 		}
 	}
 
-	@GetMapping("/pagina/{page}")
-	public Page<Producto> listar(@PathVariable Integer page) {
-		return productoService.findAll(PageRequest.of(page, 2));
+	@GetMapping("/pagina")
+	public Page<Producto> listar(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "2") int num) {
+		return productoService.findAll(PageRequest.of(page, num));
 	}
 
 	private ResponseEntity<?> validation(BindingResult result) {

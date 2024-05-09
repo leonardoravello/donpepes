@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tienda.entities.Categoria;
@@ -40,9 +41,9 @@ public class CategoriaController {
 		return categoriaService.findAll();
 	}
 
-	@GetMapping("/pagina/{page}")
-	public Page<Categoria> listar(@PathVariable Integer page, @PathVariable int cantidad) {
-		return categoriaService.findAll(PageRequest.of(page, 2));
+	@GetMapping("/pagina")
+	public Page<Categoria> listar(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "2") int num) {
+		return categoriaService.findAll(PageRequest.of(page, num));
 	}
 
 	@GetMapping("/{id}")
