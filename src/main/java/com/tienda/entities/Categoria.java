@@ -15,13 +15,15 @@ public class Categoria {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@NotBlank
-	@Column( unique = true)
+	@Column(unique = true)
 	private String nombre;
 
 	@NotBlank
 	private String detalle;
+
+	private String icono;
 
 	public int getId() {
 		return id;
@@ -47,12 +49,23 @@ public class Categoria {
 		this.nombre = nombre;
 	}
 
-	public Categoria(int id, @NotBlank String nombre, @NotBlank String detalle) {
-		super();
+	public String getIcono() {
+		return icono;
+	}
+
+	public void setIcono(String icono) {
+		this.icono = icono;
+	}
+
+	public Categoria() {
+
+	}
+
+	public Categoria(int id, @NotBlank String nombre, @NotBlank String detalle, @NotBlank String icono) {
 		this.id = id;
 		this.nombre = nombre;
 		this.detalle = detalle;
+		this.icono = icono;
 	}
-
 
 }
