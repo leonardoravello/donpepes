@@ -132,7 +132,7 @@ public class ProductoController {
 		try {
 			String nombreImagen = uploadFileService.guardarImagen(foto);
 			producto.setRuta(nombreImagen);
-			producto.setInStock("En Stock");
+			producto.setInventoryStatus("En Stock");
 			productoNuevo = productoService.save(producto);
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar consulta en la BD");

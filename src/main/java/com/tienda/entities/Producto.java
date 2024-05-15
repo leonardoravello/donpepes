@@ -17,13 +17,13 @@ public class Producto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String nombre;
-	@Column( unique = true)
+	@Column(unique = true)
 	private String descripcion;
 	private String ruta;
-	private String inStock;
+	private String inventoryStatus;
 	private int estado;
 	private int stock;
-	@Column(name="precio_venta")
+	@Column(name = "precio_venta")
 	private double precioVenta;
 	@ManyToOne
 	@JoinColumn(name = "id_marc")
@@ -90,7 +90,7 @@ public class Producto {
 	public void setMedida(UnidadMedida medida) {
 		this.medida = medida;
 	}
-	
+
 	public String getRuta() {
 		return ruta;
 	}
@@ -118,24 +118,22 @@ public class Producto {
 	public Producto() {
 
 	}
-	
-	
 
-	public String getInStock() {
-		return inStock;
+	public String getInventoryStatus() {
+		return inventoryStatus;
 	}
 
-	public void setInStock(String inStock) {
-		this.inStock = inStock;
+	public void setInventoryStatus(String inventoryStatus) {
+		this.inventoryStatus = inventoryStatus;
 	}
 
-	public Producto(int id, String nombre, String descripcion, String ruta, String inStock, int estado, int stock,
-			double precioVenta, Marca marca, Categoria categoria, UnidadMedida medida) {
+	public Producto(int id, String nombre, String descripcion, String ruta, String inventoryStatus, int estado,
+			int stock, double precioVenta, Marca marca, Categoria categoria, UnidadMedida medida) {
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.ruta = ruta;
-		this.inStock = inStock;
+		this.inventoryStatus = inventoryStatus;
 		this.estado = estado;
 		this.stock = stock;
 		this.precioVenta = precioVenta;
@@ -143,11 +141,5 @@ public class Producto {
 		this.categoria = categoria;
 		this.medida = medida;
 	}
-
-
-	
-	
-
-
 
 }
