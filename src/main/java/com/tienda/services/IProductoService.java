@@ -20,6 +20,8 @@ public interface IProductoService {
 	
 	public List<Producto> getProductos(int categoria);
 	
+	public List<Producto> getProductosMarca(int marca);
+	
 	public Page<Producto> findAll(Pageable pageable);
 
 }

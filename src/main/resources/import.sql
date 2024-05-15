@@ -1,7 +1,0 @@
-INSERT INTO `categorias` (`id`, `nombre`) VALUES (NULL, 'Bebidas'), (NULL, 'Abarrotes'), (NULL, 'Golosinas'), (NULL, 'Galletas'), (NULL, 'Panes');
-INSERT INTO `marcas` (`id`, `nombre`, `detalle`) VALUES (NULL, NULL, 'Costa'), (NULL, NULL, 'Coca Cola'), (NULL, NULL, 'Bimbo'), (NULL, NULL, 'Campomar');
-INSERT INTO `unidades_medidas` (`id`, `descripcion`) VALUES (NULL, 'Kilo'), (NULL, 'Unidad'), (NULL, 'Six Pack');
-INSERT INTO `productos` (`estado`, `id`, `id_cate`, `id_marc`, `id_unid_medi`, `precio_venta`, `stock`, `descripcion`, `nombre`, `ruta`) VALUES ('1', NULL, '4', '1', '2', '2.5', '200', 'Galleta wafer sabor vainilla 200gr', 'Wafer', '0002.jpg');
-INSERT INTO `roles` (`id`, `nombre`) VALUES (NULL, 'ROLE_ADMIN'), (NULL, 'ROLE_USER');
-INSERT INTO `usuarios` (`estado`, `id`, `apellido_materno`, `apellido_paterno`, `correo`, `nombres`, `numero_documento`, `password`) VALUES (b'1', NULL, 'Tocas', 'Leon', 'admin@gmail.com', 'Darwin', '72852197', '$2a$12$XcAi1.KswoJ2Alr16z2DnuD7sW82MuV3/Qa.9lD7wkqQUIK/vLXcC'), (b'1', NULL, 'Arambulo', 'Arambulo', 'arambulo@gmail.com', 'Bryan', '323213', '$2a$12$XcAi1.KswoJ2Alr16z2DnuD7sW82MuV3/Qa.9lD7wkqQUIK/vLXcC');
-INSERT INTO `usuarios_roles` (`rol_id`, `usuario_id`) VALUES ('1', '1'), ('2', '1'), ('2', '2');

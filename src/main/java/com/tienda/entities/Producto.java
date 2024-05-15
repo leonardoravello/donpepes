@@ -16,8 +16,8 @@ public class Producto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column( unique = true)
 	private String nombre;
+	@Column( unique = true)
 	private String descripcion;
 	private String ruta;
 	private int estado;

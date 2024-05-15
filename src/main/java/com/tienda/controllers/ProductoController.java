@@ -57,7 +57,8 @@ public class ProductoController {
 	}
 
 	@GetMapping("/pagina")
-	public Page<Producto> listar(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "2") int num) {
+	public Page<Producto> listar(@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "2") int num) {
 		return productoService.findAll(PageRequest.of(page, num));
 	}
 
@@ -285,6 +286,31 @@ public class ProductoController {
 		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment ; filename=\"" + recurso.getFilename() + "\"");
 
 		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
+	}
+
+	@PutMapping("/add-stock/{id}")
+	public ResponseEntity<Map<String, Object>> actualizarStock(@PathVariable int id, @RequestParam  int cantidad) {
+		Optional<Producto> optionalProducto = productoService.findById(id);
+		Map<String, Object> response = new HashMap<>();
+		Producto p = null;
+
+		if (!optionalProducto.isPresent()) {
+			response.put("mensaje", "El producto con ID " + id + " no existe en la BD");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+
+		try {
+
+			p = optionalProducto.get();
+			p.setStock(p.getStock()+cantidad );
+			productoService.save(p);
+		} catch (DataAccessException e) {
+			// TODO: handle exception
+		}
+		response.put("mensaje", "Stock actualizado");
+		response.put("producto", p);
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+
 	}
 
 }

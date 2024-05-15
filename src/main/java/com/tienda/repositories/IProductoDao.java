@@ -14,4 +14,7 @@ public interface IProductoDao extends JpaRepository<Producto, Integer> {
 	@Query("select  p from Producto p where p.categoria.id=?1")
 	List<Producto> listByCategoria(int categoria); 
 
+	@Query("select  p from Producto p where p.marca.id=?1")
+	List<Producto> listByMarca(int marca); 
+	
 }

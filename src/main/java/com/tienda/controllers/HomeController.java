@@ -123,6 +123,19 @@ public class HomeController {
 		}
 	}
 
+	
+	@GetMapping("/marcas/{marca}")
+	public ResponseEntity<?> marcas(@PathVariable int marca) {
+		List<Producto> productos = productoService.getProductosMarca(marca);
+		if (productos.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND)
+					.body("No hay productos disponibles para la marca especificada.");
+		} else {
+			return ResponseEntity.ok(productos);
+		}
+	}
+	
+	
 	@GetMapping("/pagina")
 	public Page<Producto> listar(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "2") int num) {
 		return productoService.findAll(PageRequest.of(page, num));

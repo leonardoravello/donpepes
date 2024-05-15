@@ -48,4 +48,9 @@ public class ProductoServiceImp implements IProductoService {
 		return productoDao.findAll(pageable);
 	}
 
+	@Override
+	public List<Producto> getProductosMarca(int marca) {
+		return productoDao.listByMarca(marca);
+	}
+
 }
