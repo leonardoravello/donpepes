@@ -20,6 +20,7 @@ public class Producto {
 	@Column( unique = true)
 	private String descripcion;
 	private String ruta;
+	private String inStock;
 	private int estado;
 	private int stock;
 	@Column(name="precio_venta")
@@ -117,14 +118,24 @@ public class Producto {
 	public Producto() {
 
 	}
+	
+	
 
-	public Producto(int id, String nombre, String descripcion, String ruta, int estado, int stock, double precioVenta,
-			Marca marca, Categoria categoria, UnidadMedida medida) {
-		super();
+	public String getInStock() {
+		return inStock;
+	}
+
+	public void setInStock(String inStock) {
+		this.inStock = inStock;
+	}
+
+	public Producto(int id, String nombre, String descripcion, String ruta, String inStock, int estado, int stock,
+			double precioVenta, Marca marca, Categoria categoria, UnidadMedida medida) {
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.ruta = ruta;
+		this.inStock = inStock;
 		this.estado = estado;
 		this.stock = stock;
 		this.precioVenta = precioVenta;
@@ -132,6 +143,8 @@ public class Producto {
 		this.categoria = categoria;
 		this.medida = medida;
 	}
+
+
 	
 	
 
