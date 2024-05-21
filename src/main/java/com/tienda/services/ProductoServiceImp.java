@@ -53,4 +53,9 @@ public class ProductoServiceImp implements IProductoService {
 		return productoDao.listByMarca(marca);
 	}
 
+	@Override
+	public List<Producto> buscar(String texto) {
+		return productoDao.buscar(texto);
+	}
+
 }

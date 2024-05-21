@@ -24,4 +24,5 @@ public interface IProductoService {
 	
 	public Page<Producto> findAll(Pageable pageable);
 
+	public List<Producto> buscar(String texto);
 }

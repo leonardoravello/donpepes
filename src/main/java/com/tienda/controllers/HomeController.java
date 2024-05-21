@@ -150,5 +150,16 @@ public class HomeController {
 		return ResponseEntity.badRequest().body(errors);
 
 	}
+	
+	@GetMapping("/buscar")
+	public List<Producto> buscar(@RequestParam String texto){
+		
+		return productoService.buscar(texto);
+	}
+	
+	
+	
+	
+	
 
 }
