@@ -45,7 +45,8 @@ public class SpringSecurityConfiguration {
 			return http.authorizeHttpRequests( auth ->
  					auth
  					.requestMatchers(HttpMethod.GET,"/api/home/**","/tienda/images/img/**","/api/mantenimiento/productos/img/{foto:.+}").permitAll()
- 					.requestMatchers(HttpMethod.POST,"/api/home/registrar").permitAll()
+ 					.requestMatchers(HttpMethod.POST,"/api/home/**").permitAll()
+ 					.requestMatchers(HttpMethod.DELETE,"/api/home/**").permitAll()
  					//.requestMatchers(HttpMethod.GET, "/tienda/categorias").hasRole("ADMIN")//
  					.requestMatchers(HttpMethod.GET, "/api/mantenimiento/**").hasRole("ADMIN")
  					.requestMatchers(HttpMethod.POST, "/api/mantenimiento/**").hasRole("ADMIN")
