@@ -25,67 +25,63 @@ import com.tienda.authorization.filter.JwtValidationFilter;
 
 @Configuration
 public class SpringSecurityConfiguration {
-	
-		@Autowired
-		private AuthenticationConfiguration authenticationConfiguration;
-		
-		@Bean
-		AuthenticationManager authenticationManager() throws Exception{
-			return authenticationConfiguration.getAuthenticationManager();
-		}
-		
-		@Bean
-		PasswordEncoder passwordEncoder() {
-			return new BCryptPasswordEncoder();
-		}
 
-		@Bean
-		SecurityFilterChain filterChain(HttpSecurity http) throws  Exception {
-			
-			return http.authorizeHttpRequests( auth ->
- 					auth
- 					.requestMatchers(HttpMethod.GET,"/api/home/**","/tienda/images/img/**","/api/mantenimiento/productos/img/{foto:.+}").permitAll()
- 					.requestMatchers(HttpMethod.POST,"/api/home/**").permitAll()
- 					.requestMatchers(HttpMethod.DELETE,"/api/home/**").permitAll()
- 					//.requestMatchers(HttpMethod.GET, "/tienda/categorias").hasRole("ADMIN")//
- 					.requestMatchers(HttpMethod.GET, "/api/mantenimiento/**").hasRole("ADMIN")
- 					.requestMatchers(HttpMethod.POST, "/api/mantenimiento/**").hasRole("ADMIN")
- 					.requestMatchers(HttpMethod.PUT, "/api/mantenimiento/**").hasRole("ADMIN")
- 					.requestMatchers(HttpMethod.DELETE, "/api/mantenimiento/**").hasRole("ADMIN")
- 					.anyRequest().authenticated())
-					.cors(cors->cors.configurationSource(configurationSource()))
-					.addFilter(new  JwtAuthenticationFilter(authenticationManager()))
-					.addFilter(new  JwtValidationFilter(authenticationManager()))
-					.csrf(config-> config.disable())
-					.sessionManagement(mng-> mng.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).build();
-		}
-		
-		@Bean
-		CorsConfigurationSource configurationSource() {
-			
-			CorsConfiguration  config= new CorsConfiguration();
-			config.setAllowedOriginPatterns(Arrays.asList("*"));
-			config.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
-			config.setAllowedMethods(Arrays.asList("POST","GET","PUT","DELETE"));
-			config.setAllowedHeaders(Arrays.asList("Authorization","Content-Type"));
-			config.setAllowCredentials(true);
-			
-			UrlBasedCorsConfigurationSource source= new UrlBasedCorsConfigurationSource();
-			source.registerCorsConfiguration("/**", config);
-			return  source;
-		}
-		
-		
-		@Bean
-		FilterRegistrationBean< CorsFilter> corsfilter(){
-			FilterRegistrationBean<CorsFilter> corsBean =new  FilterRegistrationBean<CorsFilter>(
-					new CorsFilter(this.configurationSource()));
-			corsBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
-			return corsBean;
-		}
-		
-		
-		
-		
-	
+	@Autowired
+	private AuthenticationConfiguration authenticationConfiguration;
+
+	@Bean
+	AuthenticationManager authenticationManager() throws Exception {
+		return authenticationConfiguration.getAuthenticationManager();
+	}
+
+	@Bean
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+		return http
+				.authorizeHttpRequests(auth -> auth
+						.requestMatchers(HttpMethod.GET, "/api/home/**", "/tienda/images/img/**",
+								"/api/mantenimiento/productos/img/{foto:.+}")
+						.permitAll().requestMatchers(HttpMethod.POST, "/api/home/**").permitAll()
+						.requestMatchers(HttpMethod.DELETE, "/api/home/**").permitAll()
+						// .requestMatchers(HttpMethod.GET, "/tienda/categorias").hasRole("ADMIN")//
+						.requestMatchers(HttpMethod.GET, "/api/mantenimiento/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.POST, "/api/mantenimiento/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.PUT, "/api/mantenimiento/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.DELETE, "/api/mantenimiento/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.POST, "/api/usuario/**").hasRole("USER").anyRequest()
+						.authenticated())
+				.cors(cors -> cors.configurationSource(configurationSource()))
+				.addFilter(new JwtAuthenticationFilter(authenticationManager()))
+				.addFilter(new JwtValidationFilter(authenticationManager())).csrf(config -> config.disable())
+				.sessionManagement(mng -> mng.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).build();
+	}
+
+	@Bean
+	CorsConfigurationSource configurationSource() {
+
+		CorsConfiguration config = new CorsConfiguration();
+		config.setAllowedOriginPatterns(Arrays.asList("*"));
+		config.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+		config.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE"));
+		config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+		config.setAllowCredentials(true);
+
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", config);
+		return source;
+	}
+
+	@Bean
+	FilterRegistrationBean<CorsFilter> corsfilter() {
+		FilterRegistrationBean<CorsFilter> corsBean = new FilterRegistrationBean<CorsFilter>(
+				new CorsFilter(this.configurationSource()));
+		corsBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+		return corsBean;
+	}
+
 }
