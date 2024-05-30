@@ -20,11 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.tienda.entities.Categoria;
+import com.tienda.entities.Comentario;
 import com.tienda.entities.Medida;
 import com.tienda.entities.Producto;
 import com.tienda.entities.Usuario;
 import com.tienda.entities.listas.ListaMedidas;
 import com.tienda.services.ICategoriaService;
+import com.tienda.services.IComentarioService;
 import com.tienda.services.IProductoService;
 import com.tienda.services.IUsuarioService;
 
@@ -33,6 +35,9 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/home")
 public class HomeController {
+
+	@Autowired
+	private IComentarioService comentarioService;
 
 	@Autowired
 	private IUsuarioService usuarioService;
@@ -123,7 +128,6 @@ public class HomeController {
 		}
 	}
 
-	
 	@GetMapping("/marcas/{marca}")
 	public ResponseEntity<?> marcas(@PathVariable int marca) {
 		List<Producto> productos = productoService.getProductosMarca(marca);
@@ -134,10 +138,10 @@ public class HomeController {
 			return ResponseEntity.ok(productos);
 		}
 	}
-	
-	
+
 	@GetMapping("/pagina")
-	public Page<Producto> listar(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "2") int num) {
+	public Page<Producto> listar(@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "2") int num) {
 		return productoService.findAll(PageRequest.of(page, num));
 	}
 
@@ -150,18 +154,16 @@ public class HomeController {
 		return ResponseEntity.badRequest().body(errors);
 
 	}
-	
+
 	@GetMapping("/buscar")
-	public List<Producto> buscar(@RequestParam String texto){
-		
+	public List<Producto> buscar(@RequestParam String texto) {
+
 		return productoService.buscar(texto);
 	}
-	
-	
-	
-	
-	
-	
-	
+
+	@GetMapping("/comentarios/{id}")
+	public List<Comentario> getComentarios(@PathVariable int id) {
+		return comentarioService.listarPorProducto(id);
+	}
 
 }

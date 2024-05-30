@@ -31,8 +31,5 @@ public class CometarioController {
 		return ResponseEntity.ok(comentarioService.comentar(idProducto, idUsuario, comentario));
 	}
 
-	@GetMapping("/comentarios/{id}")
-	public List<Comentario> getComentarios(@PathVariable int id) {
-		return comentarioService.listarPorProducto(id);
-	}
+	
 }
