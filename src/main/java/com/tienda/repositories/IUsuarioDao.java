@@ -12,4 +12,5 @@ public interface IUsuarioDao extends CrudRepository<Usuario, Integer> {
 
 	public Optional<Usuario> findByCorreo(String correo);
 
+
 }

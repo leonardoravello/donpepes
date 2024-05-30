@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import static com.tienda.authorization.TokenJwtConfig.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,6 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tienda.entities.Usuario;
+import com.tienda.repositories.IUsuarioDao;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -58,7 +61,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 		User user = (User) authResult.getPrincipal();
 		String username = user.getUsername();
-			
 		Collection<? extends GrantedAuthority> roles = authResult.getAuthorities();
 
 		Claims claims = Jwts.claims().add("authorities", new ObjectMapper().writeValueAsString(roles))

@@ -24,11 +24,11 @@ public class CometarioController {
 	@Autowired
 	private IComentarioService comentarioService;
 
-	@PostMapping("/{idProducto}/comentario/{idUsuario}")
-	public ResponseEntity<Comentario> comentar(@PathVariable int idProducto, @PathVariable int idUsuario,
+	@PostMapping("/{idProducto}/comentario/{correo}")
+	public ResponseEntity<Comentario> comentar(@PathVariable int idProducto, @PathVariable String correo,
 			@RequestBody Comentario comentario) {
 
-		return ResponseEntity.ok(comentarioService.comentar(idProducto, idUsuario, comentario));
+		return ResponseEntity.ok(comentarioService.comentar(idProducto, correo, comentario));
 	}
 
 	

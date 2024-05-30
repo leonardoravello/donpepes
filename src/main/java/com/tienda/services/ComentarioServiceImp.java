@@ -30,9 +30,9 @@ public class ComentarioServiceImp implements IComentarioService {
 	}
 
 	@Override
-	public Comentario comentar(int idProducto, int idUsuario, Comentario comentario) {
+	public Comentario comentar(int idProducto, String correo, Comentario comentario) {
 		Producto p = productoDao.findById(idProducto).orElseThrow();
-		Usuario u = usuarioDao.findById(idUsuario).get();
+		Usuario u = usuarioDao.findByCorreo(correo).get();
 		comentario.setProducto(p);
 		comentario.setUsuario(u);
 		return comentarioDao.save(comentario);

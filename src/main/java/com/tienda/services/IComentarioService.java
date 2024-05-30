@@ -8,7 +8,8 @@ public interface IComentarioService {
 
 	public List<Comentario> getComentarios();
 
-	public Comentario comentar(int idProducto, int idUsuario, Comentario comentario);
+	public Comentario comentar(int idProducto, String correo, Comentario comentario);
+
 	public List<Comentario> listarPorProducto(int id);
 
 }
