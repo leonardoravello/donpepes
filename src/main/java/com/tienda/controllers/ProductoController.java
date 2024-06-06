@@ -306,7 +306,6 @@ public class ProductoController {
 			p.setStock(p.getStock()+cantidad );
 			productoService.save(p);
 		} catch (DataAccessException e) {
-			// TODO: handle exception
 		}
 		response.put("mensaje", "Stock actualizado");
 		response.put("producto", p);

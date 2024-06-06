@@ -62,7 +62,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		Collection<? extends GrantedAuthority> roles = authResult.getAuthorities();
 
 		Claims claims = Jwts.claims().add("authorities", new ObjectMapper().writeValueAsString(roles))
-				.add("username", username).add("id", user.getId()).build();
+				.add("username", username).add("id", user.getId()).add("name", user.getNombre()).build();
 
 		String jwt = Jwts.builder().subject(username).claims(claims).signWith(SECRET_KEY).issuedAt(new Date())
 				.expiration(new Date(System.currentTimeMillis() + 3600000)).compact();
@@ -73,7 +73,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 		body.put("token", jwt);
 		body.put("usuario", username);
-		body.put("idUsuario", user.getId());
+		body.put("nombre", user.getNombre());
 		body.put("mensaje", String.format("Bienvenido %s has iniciado sesión", username));
 
 		response.getWriter().write(new ObjectMapper().writeValueAsString(body));

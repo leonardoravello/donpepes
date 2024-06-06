@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -164,6 +165,12 @@ public class HomeController {
 	@GetMapping("/comentarios/{id}")
 	public List<Comentario> getComentarios(@PathVariable int id) {
 		return comentarioService.listarPorProducto(id);
+	}
+
+	@GetMapping("/names")
+	public List<String> getProductNames() {
+
+		return productoService.getProductos().stream().map(Producto::getNombre).collect(Collectors.toList());
 	}
 
 }

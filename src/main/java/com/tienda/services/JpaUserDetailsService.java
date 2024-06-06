@@ -37,7 +37,7 @@ public class JpaUserDetailsService implements UserDetailsService {
 		// return new User(username, usuario.getPassword(), true, true, true, true,
 		// authorities);
 		return new com.tienda.services.UserDetails(username, usuario.getPassword(), true, true, true, true, authorities,
-				usuario.getId());
+				usuario.getId(), usuario.getNombres().concat(" ").concat(usuario.getApellidoPaterno()));
 	}
 
 }

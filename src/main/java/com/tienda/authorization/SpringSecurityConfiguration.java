@@ -48,7 +48,6 @@ public class SpringSecurityConfiguration {
 								"/api/mantenimiento/productos/img/{foto:.+}")
 						.permitAll().requestMatchers(HttpMethod.POST, "/api/home/**").permitAll()
 						.requestMatchers(HttpMethod.DELETE, "/api/home/**").permitAll()
-						// .requestMatchers(HttpMethod.GET, "/tienda/categorias").hasRole("ADMIN")//
 						.requestMatchers(HttpMethod.GET, "/api/mantenimiento/**").hasRole("ADMIN")
 						.requestMatchers(HttpMethod.POST, "/api/mantenimiento/**").hasRole("ADMIN")
 						.requestMatchers(HttpMethod.PUT, "/api/mantenimiento/**").hasRole("ADMIN")

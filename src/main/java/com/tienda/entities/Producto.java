@@ -12,6 +12,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
 @Entity
@@ -157,6 +159,19 @@ public class Producto {
 		this.marca = marca;
 		this.categoria = categoria;
 		this.medida = medida;
+	}
+
+	@PrePersist
+	@PreUpdate
+	public void inventoryStatusUpt() {
+		if (stock >= 50) {
+			inventoryStatus = "En Stock";
+		} else if (stock < 50 && stock > 0) {
+			inventoryStatus = "Poco Stock";
+		} else if (stock <= 0) {
+			inventoryStatus = "Sin Stock";
+		}
+
 	}
 
 }
